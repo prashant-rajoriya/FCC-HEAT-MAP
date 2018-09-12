@@ -79,5 +79,13 @@ d3.json(url, function(error, data) {
 		.style('text-anchor', 'middle')
 		.text('Monthly Global Land-Surface Temperature');
 
+	svg
+		.append('text')
+		.attr('id', 'description')
+		.attr('x', width/2)
+		.attr('y', 80)
+		.style('font-size', '1.5em')
+		.style('text-anchor', 'middle')
+		.text('1753 - 2015: base temperature 8.66℃');
 
 })

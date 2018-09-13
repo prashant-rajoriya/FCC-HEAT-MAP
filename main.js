@@ -108,8 +108,8 @@ d3.json(url, function(error, data) {
 
 			toolTip	
 				.style('opacity', '1')
-				.style('left', d3.event.x+10 + 'px')
-				.style('top', d3.event.y + 'px')
+				.style('left', d3.event.pageX+10 + 'px')
+				.style('top', d3.event.pageY + 'px')
 				.html(`
 					<p>${d.year} - ${months[d.month]}</p>
 					<p>${d3.format('.1f')(d.variance)} &#8451;</p>

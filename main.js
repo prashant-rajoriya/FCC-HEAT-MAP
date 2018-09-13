@@ -27,7 +27,7 @@ d3.json(url, function(error, data) {
 			height = 600,
 		  cellWidth = Math.ceil(width/Math.ceil(monthlyVariance.length/12)),
 			cellHeight = Math.ceil(height/12),
-			margin = { top: 120, right: 60, bottom: 120, left: 100 };
+			margin = { top: 120, right: 100, bottom: 120, left: 100 };
 
 	let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
 	'August', 'September', 'October', 'November', 'December'];
@@ -92,10 +92,10 @@ d3.json(url, function(error, data) {
 		.append('rect')
 		.classed('cell', true)
 		.attr('data-year', d => d.year)
-		.attr('data-month', d => d.month)
+		.attr('data-month', d => d.month-1)
 		.attr('data-temp', d => d.variance)
 		.attr('x', d => xScale(d.year))
-		.attr('y', d => yScale(months[d.month]))
+		.attr('y', d => yScale(months[d.month-1]))
 		.attr('width', cellWidth)
 		.attr('height', cellHeight)
 		.attr('fill', d => cScale(d.variance))
@@ -111,7 +111,7 @@ d3.json(url, function(error, data) {
 				.style('left', d3.event.pageX+10 + 'px')
 				.style('top', d3.event.pageY + 'px')
 				.html(`
-					<p>${d.year} - ${months[d.month]}</p>
+					<p>${d.year} - ${months[d.month-1]}</p>
 					<p>${d3.format('.1f')(d.variance)} &#8451;</p>
 				`);
 			

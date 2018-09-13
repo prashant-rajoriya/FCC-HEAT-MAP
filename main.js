@@ -11,11 +11,14 @@ d3.json(url, function(error, data) {
 		return d.variance;
 	})
 
-	let cellWidth = 5,
-			cellHeight = 50,
-			width = Math.ceil(monthlyVariance.length/12)*cellWidth,
-			height = cellHeight*12,
-			margin = { top: 120, right: 10, bottom: 60, left: 100 };
+	let width = 1518,
+			height = 600,
+		  cellWidth = Math.ceil(width/Math.ceil(monthlyVariance.length/12)),
+			cellHeight = Math.ceil(height/12),
+			margin = { top: 120, right: 10, bottom: 120, left: 100 };
+
+	let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
+	'August', 'September', 'October', 'November', 'December'];
 
 			
 	let svg = d3.select('.container')
@@ -27,8 +30,8 @@ d3.json(url, function(error, data) {
 									.domain(d3.extent(monthlyVariance, d => d.year))
 									.range([0,width]);
 
-	let yScale = d3.scaleTime()
-									.domain([new Date(2018, 0, 1), new Date(2018, 11, 1)]) //months
+	let yScale = d3.scaleBand()
+									.domain(months) //months
 									.range([0, height]);
 
 	let cScale = d3.scaleOrdinal()
@@ -36,8 +39,6 @@ d3.json(url, function(error, data) {
 									.range(d3.schemeCategory10);
 
 	let yAxis = d3.axisLeft(yScale)
-								.ticks(d3.timeMonth)
-			 					.tickFormat(d3.timeFormat("%B"))
 								.tickSize(10, 1);
 
 	let xAxis = d3.axisBottom(xScale)
@@ -64,7 +65,7 @@ d3.json(url, function(error, data) {
 		.attr('data-month', d => d.month)
 		.attr('data-temp', d => d.variance)
 		.attr('x', d => xScale(d.year))
-		.attr('y', d => yScale(new Date(2018, d.month, 1)))
+		.attr('y', d => yScale(months[d.month]))
 		.attr('width', cellWidth)
 		.attr('height', cellHeight)
 		.attr('fill', d => cScale(d.variance))
